@@ -1,0 +1,39 @@
+{"RqUID": "RqUIDExample",
+  "RqTm": "RqTm1234",
+  "SPName": "SPName",
+  "BankOrder": {
+    "DocHeader": {
+      "ReceiptDate": "someDate1234",
+      "docRef": "someString"
+          },
+    "BankOrderInfo": {
+      "DocDate": "Name1234",
+      "DocNum": "123",
+      "Sum": "1234",
+      "Purpose": "PurposeSt",
+      "Payer":{
+        "Account": "Namedsafg",
+        "Name": "BICsrtg",
+        "INN": "Corrsdfghfg",
+        "KPP": "Corrsdfghfg",
+        "Bank": {
+          "Name": "NamedsafgB",
+          "BIC": "BICsrtg",
+          "CorrAcc": "Corrsdfghfg"
+        }
+      },
+      "Benif": {
+        "Name": "NamedsafgB",
+        "INN": "INNSt",
+        "KPP": "KPPSt",
+
+        "Bank": {
+          "Name": "NamedsafgB",
+          "BIC": "BICsrtg",
+          "CorrAcc": "Corrsdfghfg"
+        }
+      },
+      "Priority": "123"
+    }
+  }
+}

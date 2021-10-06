@@ -1,0 +1,44 @@
+{"RqUID": "RqUIDExample",
+  "RqTm": "RqTm1234",
+  "SPName": "SPName",
+  "SystemId": "SystemIdString",
+  "BankOrder": {
+    "DocHeader": {
+      "TBIdentCode": "somecode1234",
+      "ReceiptDate": "someDate1234",
+      "docRef": "someString",
+      "Subbranch": "someString",
+      "ProductGUID": "someString"
+  },
+    "BankOrderInfo": {"DocDate": "Name1234",
+      "DocNum": "123",
+      "Sum": "1234",
+      "SumKt": "1234",
+      "DateProv": "DateProvSt",
+      "Purpose": "PurposeSt",
+      "Payer":{
+        "Account": "Namedsafg",
+        "Name": "BICsrtg",
+        "INN": "Corrsdfghfg",
+        "KPP": "Corrsdfghfg",
+        "Bank": {
+          "Name": "NamedsafgB",
+          "BIC": "BICsrtg",
+          "CorrAcc": "Corrsdfghfg"
+        }
+      },
+      "Benif": {
+        "Name": "NamedsafgB",
+        "INN": "INNSt",
+        "KPP": "KPPSt",
+
+        "Bank": {
+          "Name": "NamedsafgB",
+          "BIC": "BICsrtg",
+          "CorrAcc": "Corrsdfghfg"
+        }
+      },
+      "Priority": "123"
+    }
+  }
+}

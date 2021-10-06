@@ -1,0 +1,75 @@
+{ "description": "test class",
+  "type": "object",
+  "properties": {
+    "RqUID": {
+      "type": "string"
+    },
+    "RqTm": {
+      "type":  "string"
+    },
+    "SPName": {
+      "type":  "string"
+    },
+    "SystemId": {
+      "type":  "string"
+    },
+    "BankOrder": { "description": "test class",
+      "type": "object",
+      "properties": {
+        "DocHeader": {
+          "description": "test class",
+          "type": "object",
+          "properties": {
+            "TBIdentCode": {
+              "type": "string"
+            },
+            "ReceiptDate": {
+              "type":  "string"
+            },
+            "docRef": {
+              "type":  "string"
+            },
+            "Subbranch": {
+              "type":  "string"
+            },
+            "ProductGUID": {
+              "type":  "string"
+            }
+          }
+        },
+        "BankOrderInfo": { "description": "test class",
+          "type": "object",
+          "properties": {
+            "DocDate": {
+              "type": "string"
+            },
+            "DocNum": {
+              "type":  "integer"
+            },
+            "Sum": {
+              "type":  "number"
+            },
+            "SumKt": {
+              "type":  "number"
+            },
+            "DateProv": {
+              "type":  "string"
+            },
+            "Purpose": {
+              "type":  "string"
+            },
+            "Payer": {
+              "$ref": "#/definitions/CustomerType"
+            },
+            "Benif": {
+              "$ref": "#/definitions/CustomerType"
+            },
+            "Priority": {
+              "type":  "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}

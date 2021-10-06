@@ -1,0 +1,283 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Comment describing your JSON Schema",
+  "type": "object",
+  "properties": {
+    "PutBankOrderRq": {
+      "description": "Запрос на создание банковского ордера",
+      "type": "object",
+      "properties": {
+        "RqUID": {
+          "$ref": "#/definitions/RquidType"
+        },
+        "RqTm": {
+          "$ref": "#/definitions/DateTimeRqTm"
+        },
+        "SPName": {
+          "description": "Идентификатор вызывающей системы",
+          "type": "string",
+          "maxLength": 36
+        },
+        "SystemId": {
+          "description": "Идентификатор вызываемой системы",
+          "type": "string",
+          "maxLength": 36
+        },
+        "BankOrder": {
+          "description": "Банковский ордер",
+          "type": "object",
+          "properties": {
+            "DocHeader": {
+              "description": "Заголовок документа с сервисной информацией",
+              "type": "object",
+              "properties": {
+                "TBIdentCode": {
+                  "description": "Код тер.банка, в котором создается БО",
+                  "type": "string",
+                  "minLength": 2,
+                  "maxLength": 2,
+                  "pattern": "[0-9]{2}"
+                },
+                "ReceiptDate": {
+                  "$ref": "#/definitions/DateRecipient"
+                },
+                "docRef": {
+                  "$ref": "#/definitions/UUIDSeparated"
+                },
+                "Subbranch": {
+                  "description": "Код subbranch",
+                  "type": "string",
+                  "maxLength": 12
+                },
+                "ProductGUID": {
+                  "description": "Уникальный идентификатор продукта",
+                  "type": "string",
+                  "maxLength": 256
+                }
+              },
+              "required": [
+                "ReceiptDate",
+                "docRef"
+              ],
+              "additionalProperties": false
+            },
+            "BankOrderInfo": {
+              "description": "Реквизиты банковского ордера",
+              "type": "object",
+              "properties": {
+                "DocDate": {
+                  "$ref": "#/definitions/DateTime"
+                },
+                "DocNum": {
+                  "title": "Номер документа клиента",
+                  "description": "Номер документа",
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 99999999
+                },
+                "Sum": {
+                  "description": "Сумма документа",
+                  "type": "number"
+                },
+                "SumKt": {
+                  "description": "Сумма документа по кредиту",
+                  "type": "number"
+                },
+                "DateProv": {
+                  "description": "Дата проводки",
+                  "type": "string",
+                  "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                },
+                "Purpose": {
+                  "description": "Назначение платежа",
+                  "type": "string",
+                  "maxLength": 210
+                },
+                "Payer": {
+                  "$ref": "#/definitions/CustomerType"
+                },
+                "Benif": {
+                  "$ref": "#/definitions/CustomerType"
+                },
+                "Priority": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "DocDate",
+                "DocNum",
+                "Sum",
+                "Purpose",
+                "Payer",
+                "Benif",
+                "Priority"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "DocHeader",
+            "BankOrderInfo"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "RqUID",
+        "RqTm",
+        "SPName",
+        "BankOrder"
+      ],
+      "additionalProperties": false
+    },
+    "PutBankOrderRs": {
+      "description": "Технический тикет о приеме запроса",
+      "type": "object",
+      "properties": {
+        "RqUID": {
+          "type": "string",
+          "pattern": "([0-9]|[a-f]|[A-F]){32}"
+        },
+        "RqTm": {
+          "description": "Дата и время формирования сообщения",
+          "type": "string",
+          "pattern": "\\d{4}-\\d\\d-\\d\\d(T\\d\\d:\\d\\d:\\d\\d(.[\\d]{1,6})?(([+\\-]\\d\\d:\\d\\d)|Z)?)?"
+        },
+        "SPName": {
+          "description": "Идентификатор вызывающей системы(кто вызывает)",
+          "type": "string",
+          "maxLength": 36
+        },
+        "SystemId": {
+          "description": "Идентификатор вызываемой системы (кого вызываем)",
+          "type": "string",
+          "maxLength": 36
+        },
+        "Status": {
+          "description": "Технический статус запроса",
+          "type": "object",
+          "properties": {
+            "docRef": {
+              "description": "Глобальный идентификатор документа",
+              "type": "string",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+            },
+            "Code": {
+              "description": "Код статуса(1-успех, 0-отказ)",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "Annotation": {
+              "description": "Описание ошибки в случае отказа",
+              "type": "string"
+            }
+          },
+          "required": [
+            "docRef",
+            "Code"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "RqUID",
+        "RqTm",
+        "SPName",
+        "SystemId",
+        "Status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "PutBankOrderRq",
+    "PutBankOrderRs"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "UUIDSeparated": {
+      "description": "Глобальный идентификатор",
+      "type": "string",
+      "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+    },
+    "DateRecipient": {
+      "description": "Дата приема документа",
+      "type": "string",
+      "pattern": "\\d{4}-\\d\\d-\\d\\d(T\\d\\d:\\d\\d:\\d\\d(.[\\d]{1,6})?(([+\\-]\\d\\d:\\d\\d)|Z)?)?"
+    },
+    "DateTimeRqTm": {
+      "description": "Дата и время передачи сообщения",
+      "type": "string",
+      "pattern": "\\d{4}-\\d\\d-\\d\\d(T\\d\\d:\\d\\d:\\d\\d(.[\\d]{1,6})?(([+\\-]\\d\\d:\\d\\d)|Z)?)?"
+    },
+    "RquidType": {
+      "description": "Уникальный идентификатор сообщения",
+      "type": "string",
+      "pattern": "([0-9]|[a-f]|[A-F]){32}"
+    },
+    "BankType": {
+      "description": "Реквизиты банка",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "BIC": {
+          "type": "string"
+        },
+        "CorrAcc": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 25
+        }
+      },
+      "required": [
+        "BIC"
+      ],
+      "additionalProperties": false
+    },
+    "CustomerType": {
+      "title": "Получатель",
+      "description": "Информация о клиенте",
+      "type": "object",
+      "properties": {
+        "Account": {
+          "description": "Номер счета клиента",
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 25
+        },
+        "Name": {
+          "description": "Наименование клиента",
+          "type": "string",
+          "maxLength": 160
+        },
+        "INN": {
+          "description": "ИНН",
+          "type": "string",
+          "maxLength": 12
+        },
+        "KPP": {
+          "description": "КПП",
+          "type": "string",
+          "maxLength": 9
+        },
+        "Bank": {
+          "$ref": "#/definitions/BankType"
+        }
+      },
+      "required": [
+        "Account",
+        "Bank"
+      ],
+      "additionalProperties": false
+    },
+    "DateTime": {
+      "title": "Дата и время клиентские",
+      "description": "Дата и время",
+      "type": "string",
+      "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]{6})?((-|\\+)[0-9]{2}:[0-9]{2})?)?)?"
+    }
+  }
+}
